@@ -144,7 +144,7 @@ public class MusicView {
 	}
 	public void removeMusic() {
 		//TOOD
-		System.out.println("****** 특정 곡 tkrwp ******");
+		System.out.println("****** 특정 곡 삭제 ******");
 		System.out.println("삭제할 곡명을 입력해주세요.");
 		String title = sc.nextLine();
 		Music result = mc.removeMusic(title);
@@ -156,6 +156,10 @@ public class MusicView {
 	}
 	public void setMusic() {
 		//TOOD
+		System.out.println("****** 특정 곡 정보 수정 ******");
+		System.out.println("수정할 곡명을 입력해주세요.");
+		String title = sc.nextLine();
+		Music result = mc.setMusic(title, null);
 	}
 	public void ascTitle() {
 		//TOOD
