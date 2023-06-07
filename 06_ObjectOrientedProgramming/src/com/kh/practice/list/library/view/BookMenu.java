@@ -1,5 +1,6 @@
 package com.kh.practice.list.library.view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.kh.practice.list.library.controller.BookController;
@@ -48,6 +49,20 @@ public class BookMenu {
 	}
 	
 	public void selectList() {
+		ArrayList<Book> bookList = bc.selectList();
+		if(bookList == null) {
+			System.out.println("존재하는 도서가 없습니다.");
+		} else {
+			System.out.println("==== 도서 전체 조회 ====");
+			for(int i =0; i<bookList.size();i++) {
+				System.out.println(bookList.get(i));
+			}
+		}
+	}
+	
+	public void searchBook() {
+		System.out.println("검색할 도서명 : ");
+		String keyword = sc.nextLine();
 		
 	}
 
