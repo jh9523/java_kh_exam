@@ -1,10 +1,19 @@
 package com.kh.practice.list.music.view;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Scanner;
 
 import com.kh.practice.list.music.controller.MusicController;
 import com.kh.practice.list.music.model.vo.Music;
+import com.kh.practice.list.music.controller.*;
 
 public class MusicView {
 	private Scanner sc = new Scanner(System.in);
@@ -32,9 +41,10 @@ public class MusicView {
 			System.out.println("7. 곡명 오름차순 정렬");
 			System.out.println("8. 가수명 내림차순 정렬");
 			System.out.println("9. 종료");
+			System.out.println("0. 파일에 저장");
 			System.out.println("메뉴 번호 선택 : >>");
 			String menuStr = sc.nextLine();
-			int menu = 0;
+			int menu = -1;
 			// 비정상 입력 경우
 			try {
 				menu = Integer.parseInt(menuStr);	// 사용자 
@@ -47,6 +57,9 @@ public class MusicView {
 //				continue;
 //			}
 			switch(menu) {
+//			case 0:
+//				saveFile();
+//				break;
 			case 1:
 				addList();
 				break;
@@ -151,6 +164,7 @@ public class MusicView {
 		if(result == null) {
 			System.out.println("삭제할 곡이 없습니다.");
 		} else {
+			// 기존 곡명/ 가수 
 			System.out.printf("삭제한 곡은 %s, %s 입니다.\n", result.getTitle(), result.getSinger());
 		}
 	}
@@ -159,12 +173,74 @@ public class MusicView {
 		System.out.println("****** 특정 곡 정보 수정 ******");
 		System.out.println("수정할 곡명을 입력해주세요.");
 		String title = sc.nextLine();
-		Music result = mc.setMusic(title, null);
+		System.out.println("변경할 곡명을 입력해주세요.");
+		String newTitle = sc.nextLine();
+		System.out.println("변경할 가수명을 입력해주세요.");
+		String newSinger = sc.nextLine();
+		
+		
+		Music result = mc.setMusic(title, new Music(newTitle, newSinger));
+		if(result == null) {
+			System.out.println("수정할 곡이 없습니다.");
+		} else {
+			System.out.printf("%s, %s로 수정되었습니다\n", result.getTitle(), result.getSinger());
+		}
 	}
-	public void ascTitle() {
+	public int ascTitle() {
+		System.out.println("****** 곡 명 오름차순 정렬 ******");
+		int result =mc.ascTitle2();
+		
+		return result;
+		
 		//TOOD
 	}
-	public void descSinger() {
+	public int descSinger() {
+		System.out.println("****** 가수 명 내림차순 정렬 ******");
 		//TOOD
+		int result = mc.descSinger2();
+		if(result>0) {
+			System.out.println("정렬 성공");
+		} else {
+			System.out.println("정렬 실패");
+		}
+		
+		
+//		int result =  mc.descSinger();
+//		if(result>0) {
+//			System.out.println("정렬 성공");
+//		} else {
+//			return result;
+//		}
+		return result;
+		
+	}
+	public int saveFile(String filePath) {
+		int result = 0;	// 0 : 저장실패, 1 : 저장성공
+		
+		
+		FileOutputStream fos = null;		// 기반
+		ObjectOutputStream oos = null;		// 보조
+		BufferedOutputStream bos = null;	// 보조
+		try {
+			fos = new FileOutputStream(filePath);
+			oos = new ObjectOutputStream(fos);
+			bos = new BufferedOutputStream(bos);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(bos != null) bos.close();
+				if(oos != null) oos.close();
+				if(fos != null) fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+	
+		
+		return result;
 	}
 }

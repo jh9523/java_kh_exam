@@ -5,7 +5,11 @@ import com.kh.practice.list.music.view.MusicView;
 public class Run {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+//		String a = "aa";
+//		String b = "ac";
+//		int result = a.compareTo(b);
+//		System.out.println(result);
+		
 		new MusicView().mainMenu();
 	}
 

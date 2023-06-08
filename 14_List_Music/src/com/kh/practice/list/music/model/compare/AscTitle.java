@@ -1,10 +1,16 @@
 package com.kh.practice.list.music.model.compare;
 
-public class AscTitle {
-	public int compare(Object o1, Object o2) {
+import java.util.Comparator;
+
+import com.kh.practice.list.music.model.vo.Music;
+
+public class AscTitle implements Comparator<Music> {
+	@Override
+	public int compare(Music o, Music o2) {
 		int result =0;
-		//TOOD
+		result = o.getTitle().compareTo(o2.getTitle());
 		return result;
 		
 	}
+
 }
