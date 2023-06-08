@@ -42,6 +42,7 @@ public class MusicView {
 			System.out.println("8. 가수명 내림차순 정렬");
 			System.out.println("9. 종료");
 			System.out.println("0. 파일에 저장");
+			System.out.println("10. 파일에서 로딩");
 			System.out.println("메뉴 번호 선택 : >>");
 			String menuStr = sc.nextLine();
 			int menu = -1;
@@ -57,9 +58,9 @@ public class MusicView {
 //				continue;
 //			}
 			switch(menu) {
-//			case 0:
-//				saveFile();
-//				break;
+			case 0:
+				saveFile();
+				break;
 			case 1:
 				addList();
 				break;
@@ -87,6 +88,9 @@ public class MusicView {
 			case 9:
 				System.out.println("종료");
 				return;	// 종료 경우 메소드 종료
+			case 10:
+				loadFile();
+				break;
 			default:
 				// 비정상 입력 경우
 				System.out.println("!!!메뉴에 해당하는 1-9 숫자만 작성해주세요.");
@@ -214,33 +218,30 @@ public class MusicView {
 		return result;
 		
 	}
-	public int saveFile(String filePath) {
-		int result = 0;	// 0 : 저장실패, 1 : 저장성공
-		
-		
-		FileOutputStream fos = null;		// 기반
-		ObjectOutputStream oos = null;		// 보조
-		BufferedOutputStream bos = null;	// 보조
-		try {
-			fos = new FileOutputStream(filePath);
-			bos = new BufferedOutputStream(bos);
-			oos = new ObjectOutputStream(fos);
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(oos != null) oos.close();
-				if(bos != null) bos.close();
-				if(fos != null) fos.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		}
 	
+	public void saveFile() {
+		System.out.println("****** 곡정보를 파일에 저장 ******");
+		System.out.println("저장할 파일경로를 작성해 주세요");
+		String fileName = sc.nextLine();
 		
-		return result;
+		int result = mc.saveFile(fileName);
+		if(result>0) {
+			System.out.println("저장 성공");
+		}else {
+			System.out.println("저장 실패");
+		}
+	}
+	
+	public void loadFile() {
+		System.out.println("****** 곡정보를 파일에서 로드 ******");
+		System.out.println("곡정보를 읽어올 파일경로를 작성해 주세요");
+		String fileName = sc.nextLine();
+		
+		int result = mc.loadFile(fileName);
+		if(result>0) {
+			System.out.println("불러오기 성공");
+		}else {
+			System.out.println("불러오기 실패");
+		}
 	}
 }
