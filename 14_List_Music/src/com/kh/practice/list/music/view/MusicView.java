@@ -223,8 +223,8 @@ public class MusicView {
 		BufferedOutputStream bos = null;	// 보조
 		try {
 			fos = new FileOutputStream(filePath);
-			oos = new ObjectOutputStream(fos);
 			bos = new BufferedOutputStream(bos);
+			oos = new ObjectOutputStream(fos);
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -232,8 +232,8 @@ public class MusicView {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(bos != null) bos.close();
 				if(oos != null) oos.close();
+				if(bos != null) bos.close();
 				if(fos != null) fos.close();
 				} catch (IOException e) {
 					e.printStackTrace();
